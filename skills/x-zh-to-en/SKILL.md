@@ -1,9 +1,9 @@
 ---
-name: zh-to-en
+name: x-zh-to-en
 description: Convert Chinese text into natural English with light interpretation and improvement. Use when the user writes in Chinese and wants an English version that preserves intent but can add clarifications, suggestions, or slight enhancements rather than a literal translation.
 ---
 
-# Chinese to English (zh-to-en)
+# Chinese to English (x-zh-to-en)
 
 ## Instructions
 
