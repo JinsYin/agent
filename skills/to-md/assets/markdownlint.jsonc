@@ -1,0 +1,33 @@
+// 转换文档专用的宽松 markdownlint 规则集。
+// markitdown 从 PDF/Word/PPT 等机器生成的文档抽取出的 Markdown，天然会触发一批
+// 对“转换结果”毫无意义的规则。这里只关掉这几条噪点，其余规则（多为可自动修复的
+// 排版规则）保持默认，让 --fix 把真正能修的脏东西清理干净。
+{
+  "default": true,
+
+  // MD013 line-length：源文档的段落往往是一整段长文本，强行折行反而破坏内容。
+  "MD013": false,
+
+  // MD033 no-inline-html：表格、上下标、合并单元格等会被转成内联 HTML，属正常产物。
+  "MD033": false,
+
+  // MD041 first-line-heading：文档正文第一行常是正文/图注而非标题，不应报错。
+  "MD041": false,
+
+  // MD025 single-title：PDF/扫描件常被抽出多个一级标题，非可自动修复且无意义。
+  "MD025": false,
+
+  // MD024 no-duplicate-heading：文档里反复出现“备注”“说明”等同名小节很常见，
+  // 只在同级兄弟标题重复时才算问题。
+  "MD024": { "siblings_only": true },
+
+  // MD060 table-column-style：markitdown 抽出的表格不会对齐管道符，纯属观感、
+  // 不影响渲染，且 --fix 不修，作为转换产物应当忽略。
+  "MD060": false,
+
+  // MD029 ol-prefix：--fix 会「重排」有序列表序号（把 2./3./4. 强行改回 1./2./3.，
+  // 或把 `- 2. xxx` 这类项当成从 1 起的子列表重编号）。对转换产物这是灾难——它会篡改
+  // 源文档真实的编号（目录、章节号、法条条款号常被 markitdown 拆散后仍需保留原号）。
+  // 忠于原文优先于序号整齐，关掉。
+  "MD029": false
+}

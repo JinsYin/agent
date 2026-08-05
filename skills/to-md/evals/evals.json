@@ -1,0 +1,26 @@
+{
+  "skill_name": "to-md",
+  "evals": [
+    {
+      "id": 0,
+      "name": "single-pdf",
+      "prompt": "帮我把这份季度报告转成 markdown：./q3_report.pdf",
+      "expected_output": "在 q3_report.pdf 同目录下生成 q3_report.md，内容为该 PDF 的 Markdown 文本（含标题/正文），并已过 lint 清理。",
+      "files": ["q3_report.pdf"]
+    },
+    {
+      "id": 1,
+      "name": "batch-directory",
+      "prompt": "把 ./briefing 这个文件夹里的几个文档都转成 md 版本",
+      "expected_output": "briefing/ 下的 meeting_notes.docx、phoenix_deck.pptx、headcount.xlsx 各生成同名 .md（同目录），都过 lint。",
+      "files": ["briefing/meeting_notes.docx", "briefing/phoenix_deck.pptx", "briefing/headcount.xlsx"]
+    },
+    {
+      "id": 2,
+      "name": "overwrite-existing",
+      "prompt": "把 ./policy.docx 转成 markdown",
+      "expected_output": "policy.md 已存在且含哨兵旧内容；skill 应先察觉冲突并征求用户是否覆盖，而不是静默覆盖丢失旧内容。",
+      "files": ["policy.docx", "policy.md"]
+    }
+  ]
+}
