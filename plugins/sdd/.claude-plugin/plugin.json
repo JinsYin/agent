@@ -1,0 +1,18 @@
+{
+  "name": "sdd",
+  "version": "0.1.0",
+  "description": "规范驱动开发（Spec-Driven Development）工具包：前端 UI / DevOps / 文档 / Spring Boot 四套最佳实践规则集，加上项目规范建立与漂移检测（setup-rules）和高保真设计还原（design-to-code）",
+  "author": {
+    "name": "JinsYin",
+    "email": "jinsyin@gmail.com"
+  },
+  "repository": "https://github.com/jinsyin/skills",
+  "license": "MIT",
+  "keywords": [
+    "best-practices",
+    "coding-standards",
+    "spec-driven-development",
+    "rules",
+    "design-to-code"
+  ]
+}

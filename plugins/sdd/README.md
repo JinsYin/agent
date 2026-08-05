@@ -1,0 +1,46 @@
+# sdd
+
+规范驱动开发（Spec-Driven Development）工具包：把「先立规范、再按规范产出代码」这条链路上的 skill 打包在一起——四套领域最佳实践规则集，加上项目规范的建立与漂移检测，以及从高保真设计到生产代码的还原。
+
+## 安装
+
+```bash
+# 在 Claude Code 中
+/plugin marketplace add jinsyin/skills
+/plugin install sdd@jinsyin-skills
+```
+
+本地开发：
+
+```bash
+claude --plugin-dir plugins/sdd
+```
+
+## 包含的 skill（6 个）
+
+| Skill | 作用 | 触发方式 |
+| --- | --- | --- |
+| `setup-rules` | 勘察代码库取证 → 只就推断不了的事访谈 → 把约定按加载成本分诊到 CLAUDE.md / skill / .claude-rules / 项目文档四层，并检测规范与代码的漂移 | 自动 + `/sdd:setup-rules` |
+| `frontend-ui-best-practices` | 前端 UI 规则集：表单、列表、弹层、格式化、一致性 | 自动 |
+| `devops-best-practices` | 容器化与部署规则集（26 条 / 6 类）：Dockerfile、K8s、compose、CI、凭据 | 自动 |
+| `doc-writing-best-practices` | 文档规则集：中英混排、标点、结构、示例可复制 | 自动 |
+| `spring-boot-best-practices` | Spring Boot 后端规则集：分层、命名、DTO、响应封装、加密、数据库 | 自动 |
+| `design-to-code` | 把高保真设计 / 原型（HTML + React JSX）还原为 Vite + React + TypeScript + Tailwind + shadcn/ui 生产级代码 | 仅手动 `/sdd:design-to-code` |
+
+> `design-to-code` 的 frontmatter 设了 `disable-model-invocation: true`，因此不会被模型自动触发，只能由用户显式调用。
+
+## 规则集的用法
+
+四个 `*-best-practices` 是**索引式**的：`SKILL.md` 只含规则索引，Claude 按当前任务定位相关条目后再按需 `Read` 对应的 `rules/*.md`，避免一次性吃掉整套规范。
+
+## 与 setup-rules 的配合
+
+典型链路：
+
+1. `/sdd:setup-rules` —— 为项目建立或整顿分层规范
+2. 日常开发中，四套 `*-best-practices` 按文件类型自动介入
+3. `/sdd:setup-rules --check` —— 定期检测规范与代码库的漂移
+
+## 与仓库 skills/ 的关系
+
+`plugins/sdd/skills/` 下均为指向 `skills/` 的符号链接，内容单一来源。直接编辑 `skills/<name>/SKILL.md` 即可，plugin 侧自动生效。
