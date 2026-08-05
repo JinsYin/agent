@@ -12,17 +12,28 @@ npx skills@latest add jinsyin/skills
 
 ### 方式二：作为 Claude Code plugin
 
-在 Claude Code 中添加本仓库为 marketplace，再按需安装：
+在 Claude Code 中添加本仓库为 marketplace，再选择安装粒度：
 
 ```
 /plugin marketplace add jinsyin/skills
+
+# 全部 skills（推荐）
+/plugin install jinsyin-skills@jinsyin-skills
+
+# 或者按需安装单个 plugin
 /plugin install gsx@jinsyin-skills
 /plugin install sdd@jinsyin-skills
 ```
 
+`jinsyin-skills` 与 `gsx` / `sdd` **二选一**：前者已包含后两者的全部 skill，同时安装会导致同名 skill 重复加载。
+
 本地调试：
 
 ```bash
+# 全量
+claude --plugin-dir .
+
+# 单个
 claude --plugin-dir plugins/gsx --plugin-dir plugins/sdd
 ```
 
@@ -30,10 +41,11 @@ claude --plugin-dir plugins/gsx --plugin-dir plugins/sdd
 
 | Plugin | 内容 | 说明 |
 | --- | --- | --- |
+| `jinsyin-skills`（仓库根） | `skills/` 下全部 27 个 skill | 全量合集，等于 `gsx` + `sdd` + 独立 skill（`to-md`） |
 | [`gsx`](plugins/gsx/) | 20 个 `gsx-*` skill | GSD 工作流薄前门，覆盖计划、执行、评审、UAT 全流程 |
 | [`sdd`](plugins/sdd/) | 4 套 `*-best-practices` + `setup-rules` + `design-to-code` | 规范驱动开发：立规范 → 按规范产出代码 |
 
-两个 plugin 通过符号链接复用 `skills/` 下的原始目录，**内容单一来源**：编辑 `skills/<name>/SKILL.md` 即可，plugin 侧自动生效。未被 plugin 收纳的 skill（如 `to-md`）仍可通过方式一单独使用。
+`gsx` / `sdd` 通过符号链接复用 `skills/` 下的原始目录，`jinsyin-skills` 直接以仓库根为 plugin 根、`skills/` 即其 skill 目录，因此**内容单一来源**：编辑 `skills/<name>/SKILL.md` 即可，三个 plugin 全部自动生效。
 
 ## 包含技能
 
